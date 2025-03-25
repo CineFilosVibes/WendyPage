@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Para mi Wendy 💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #ff99cc, #ff6699);
+            font-family: 'Arial', cursive;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .stitch-gif {
+            width: 100%;
+            max-width: 250px;
+            margin: 20px auto;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .messages {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .message, .message-start {
+            font-size: 1.1rem;
+            color: #ff3366;
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 5px solid #ff3366;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 5px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart, .stitch-float {
+            position: absolute;
+            animation: float 6s linear infinite;
+            opacity: 0;
+        }
+
+        .heart {
+            color: #ff3366;
+            font-size: 20px;
+        }
+
+        .stitch-float {
+            width: 30px;
+            height: 30px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 🌟 Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .message, .message-start {
+                font-size: 1rem; /* Tamaño uniforme en móviles */
+                padding: 10px;
+            }
+
+            .stitch-gif {
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .message, .message-start {
+                font-size: 0.95rem; /* Reduce un poco más en pantallas pequeñas */
+            }
+
+            .stitch-gif {
+                max-width: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <h1>💖 Para mi Wendy 💖</h1>
+        
+        <img src="https://1.bp.blogspot.com/-tpbMDjdy7HA/WDZycowlduI/AAAAAAADye4/pdPhrLikLqQYPqnU7sAJ8QFBYJmbhnVsQCLcB/s1600/AS000681_04.gif" alt="Stitch Amor" class="stitch-gif" id="stitch-gif">
+        
+        <div class="message-start">
+            Da click en Stitch 5 veces para ver los mensajes mi amor 💖
+        </div>
+        
+        <div class="messages">
+            <div class="message">Te quiero mucho mi Wendy hermosa!! 🌟</div>
+            <div class="message">Me encanta tu sonrisa mi amor 😊</div>
+            <div class="message">Me encanta pasar tiempo contigo 💞</div>
+            <div class="message">Una de las cosas que me alegra por las mañanas es pensar en ti y saber que te voy a ver mi amor 🌸</div>
+            <div class="message">Eres una persona maravillosa, estoy tan feliz de tenerte a mi lado 🥰</div>
+        </div>
+    </div>
+
+    <script>
+        let messageIndex = 0;
+        const messages = document.querySelectorAll('.message');
+        const stitchGif = document.getElementById('stitch-gif');
+
+        // Ocultar todos los mensajes al inicio
+        messages.forEach(msg => msg.style.display = "none");
+
+        // Mostrar mensajes uno por uno al hacer clic en Stitch
+        stitchGif.addEventListener('click', () => {
+            if (messageIndex < messages.length) {
+                messages[messageIndex].style.display = "block";
+                messages[messageIndex].style.opacity = "1";
+                messageIndex++;
+            }
+        });
+
+        // Generar corazones y Stitch flotantes
+        function createFloatingElement() {
+            const isHeart = Math.random() > 0.5;
+            const element = document.createElement('div');
+
+            if (isHeart) {
+                element.innerHTML = '❤️';
+                element.className = 'heart';
+                element.style.fontSize = Math.random() * 20 + 15 + 'px';
+            } else {
+                element.className = 'stitch-float';
+                element.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/Stitch_%28Lilo_%26_Stitch%29.svg/800px-Stitch_%28Lilo_%26_Stitch%29.svg.png" width="30" height="30">`;
+            }
+
+            element.style.left = Math.random() * 100 + '%';
+            element.style.animationDuration = Math.random() * 3 + 4 + 's';
+            element.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('hearts').appendChild(element);
+            
+            setTimeout(() => element.remove(), 6000);
+        }
+
+        setInterval(createFloatingElement, 100);
+
+        // Reiniciar el GIF para que se repita infinito
+        function restartGif() {
+            stitchGif.src = stitchGif.src;
+        }
+
+        setInterval(restartGif, 4000);
+    </script>
+</body>
+</html>
